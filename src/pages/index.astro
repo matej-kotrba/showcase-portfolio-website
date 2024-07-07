@@ -1,7 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import LandingTitle from '../components/svelte/landing-title.svelte';
 ---
 
 <Layout title="Homepage">
-	Hi
+	<LandingTitle client:load />
 </Layout>
