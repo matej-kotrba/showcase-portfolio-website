@@ -18,6 +18,7 @@ export default {
 				'primary': 'var(--primary)',
 				'secondary': 'var(--secondary)',
 				'text': 'var(--text)',
+				'text-darker': 'var(--text-darker)',
 				'landing-bg': 'var(--landing-bg)',
 			},
 			fontFamily: {
