@@ -2,9 +2,11 @@
 import Layout from '../layouts/Layout.astro';
 import LandingTitle from '../components/svelte/landing-title.svelte';
 import BgLines from "@components/svelte/bg-lines.svelte";
+import LandingIntro from '@/components/svelte/landing-intro.svelte';
 ---
 
 <Layout title="Homepage">
 	<!-- <LandingTitle client:load /> -->
-	 <BgLines client:load />
+	 <!-- <BgLines client:load /> -->
+		<LandingIntro client:load />
 </Layout>
