@@ -5,12 +5,22 @@ import BgLines from "@components/svelte/bg-lines.svelte";
 import LandingIntro from '@/components/svelte/landing/intro.svelte';
 import Text from '@/components/svelte/landing/text.svelte';
 import CornerPortrait from "@/components/svelte/landing/corner-portrait.svelte";
+import Navbar from "@/components/svelte/landing/nav.svelte";
 ---
 
 <Layout title="Homepage">
-	<Text client:load />
-	<CornerPortrait client:load />
-	<!-- <LandingTitle client:load /> -->
+	<div class="w-full h-screen py-16 flex flex-col">
+		<Navbar client:load />
+		<div class="flex h-full">
+			<div class="self-center flex-1">
+				<Text client:load />
+			</div>
+			<div class="self-end">
+				<CornerPortrait client:load />
+			</div>
+		</div>
+	</div>
+		<!-- <LandingTitle client:load /> -->
 	 <!-- <BgLines client:load /> -->
 		<!-- <LandingIntro client:load /> -->
 </Layout>

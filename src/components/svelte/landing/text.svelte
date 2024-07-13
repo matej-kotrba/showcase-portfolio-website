@@ -1,4 +1,7 @@
-<section class="mt-32">
+<script lang="ts">
+</script>
+
+<section>
   <h1 class="text-h1">
     <span class="text-text-darker">Hi, I am</span>
     <span>Matěj Kotrba</span>

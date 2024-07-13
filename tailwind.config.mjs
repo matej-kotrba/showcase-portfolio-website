@@ -20,6 +20,10 @@ export default {
 				'text': 'var(--text)',
 				'text-darker': 'var(--text-darker)',
 				'landing-bg': 'var(--landing-bg)',
+				'codeblock-specifier': 'var(--codeblock-specifier)',
+				'codeblock-selector': 'var(--codeblock-selector)',
+				'codeblock-value': 'var(--codeblock-value)',
+				'codeblock-rest': 'var(--codeblock-rest)',
 			},
 			fontFamily: {
 				'default': 'var(--font-default)',
