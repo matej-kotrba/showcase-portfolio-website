@@ -36,10 +36,18 @@
     </li>
     <li class="line"></li>
     <li
-      class="bg-landing-bg rounded-r-full border border-secondary border-l-0 hover:border-primary duration-100"
+      class="bg-landing-bg border border-secondary border-l-0 hover:border-primary duration-100"
     >
       <a href="#stack" class="px-12 h-full grid items-center">
         <span class="relative">Stack</span>
+      </a>
+    </li>
+    <li class="line"></li>
+    <li
+      class="bg-landing-bg rounded-r-full border border-secondary border-l-0 hover:border-primary duration-100"
+    >
+      <a href="#hobbies" class="px-12 h-full grid items-center">
+        <span class="relative">Hobbies</span>
       </a>
     </li>
   </ul>

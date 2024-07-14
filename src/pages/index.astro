@@ -6,6 +6,7 @@ import LandingIntro from '@/components/svelte/landing/intro.svelte';
 import Text from '@/components/svelte/landing/text.svelte';
 import CornerPortrait from "@/components/svelte/landing/corner-portrait.svelte";
 import Navbar from "@/components/svelte/landing/nav.svelte";
+import Heading from '@/components/svelte/listing/heading.svelte';
 ---
 
 <Layout title="Homepage">
@@ -20,6 +21,8 @@ import Navbar from "@/components/svelte/landing/nav.svelte";
 			</div>
 		</div>
 	</div>
+	<Heading number={1} title="Projects" client:load />
+	<div class="mt-[400px]"></div>
 		<!-- <LandingTitle client:load /> -->
 	 <!-- <BgLines client:load /> -->
 		<!-- <LandingIntro client:load /> -->
