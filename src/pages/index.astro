@@ -24,8 +24,11 @@ import EffioLanding from '@/components/svelte/projects/effio-landing.svelte';
 		</div>
 	</div> -->
 	<!-- Projects -->
+	 <div class="mt-[1000px]"></div>
 	<Heading number={1} title="Projects" client:load />
-	<EffioLanding />
+	<div class="w-full overflow-x-clip">
+		<EffioLanding client:load />
+	</div>
 		<!-- <LandingTitle client:load /> -->
 	 <!-- <BgLines client:load /> -->
 		<!-- <LandingIntro client:load /> -->
