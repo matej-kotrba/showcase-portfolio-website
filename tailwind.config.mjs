@@ -12,6 +12,8 @@ export default {
 				'h6': 'var(--h6)',
 				'body': 'var(--body)',
 				'small': 'var(--small)',
+				'landing': 'var(--landing)',
+				'landing-bg': 'var(--landing-bg)'
 			},
 			colors: {
 				'background': 'var(--background)',

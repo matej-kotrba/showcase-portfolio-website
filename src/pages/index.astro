@@ -7,10 +7,12 @@ import Text from '@/components/svelte/landing/text.svelte';
 import CornerPortrait from "@/components/svelte/landing/corner-portrait.svelte";
 import Navbar from "@/components/svelte/landing/nav.svelte";
 import Heading from '@/components/svelte/listing/heading.svelte';
+import EffioLanding from '@/components/svelte/projects/effio-landing.svelte';
 ---
 
 <Layout title="Homepage">
-	<div class="w-full h-screen py-16 flex flex-col">
+	<!-- Landing -->
+	<!-- <div class="w-full h-screen py-16 flex flex-col">
 		<Navbar client:load />
 		<div class="flex h-full">
 			<div class="self-center flex-1">
@@ -20,9 +22,10 @@ import Heading from '@/components/svelte/listing/heading.svelte';
 				<CornerPortrait client:load />
 			</div>
 		</div>
-	</div>
+	</div> -->
+	<!-- Projects -->
 	<Heading number={1} title="Projects" client:load />
-	<div class="mt-[400px]"></div>
+	<EffioLanding />
 		<!-- <LandingTitle client:load /> -->
 	 <!-- <BgLines client:load /> -->
 		<!-- <LandingIntro client:load /> -->
