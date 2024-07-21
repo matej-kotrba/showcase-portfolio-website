@@ -11,6 +11,10 @@ import EffioLanding from '@/components/svelte/projects/effio-landing.svelte';
 ---
 
 <Layout title="Homepage">
+	<div  class="container mx-auto">
+		<!-- <div class="mt-[1000px]"></div> -->
+		<!-- <Heading number={1} title="Projects" client:load /> -->
+	</div>
 	<!-- Landing -->
 	<!-- <div class="w-full h-screen py-16 flex flex-col">
 		<Navbar client:load />
@@ -24,11 +28,12 @@ import EffioLanding from '@/components/svelte/projects/effio-landing.svelte';
 		</div>
 	</div> -->
 	<!-- Projects -->
-	 <div class="mt-[1000px]"></div>
-	<Heading number={1} title="Projects" client:load />
 	<div class="w-full overflow-x-clip">
 		<EffioLanding client:load />
 	</div>
+
+
+
 		<!-- <LandingTitle client:load /> -->
 	 <!-- <BgLines client:load /> -->
 		<!-- <LandingIntro client:load /> -->
