@@ -7,9 +7,6 @@
 
   const backgroundEffectText = "EFFIO";
 
-  // Three animation data
-  // const sizes = [500, 800];
-
   let mobileCanvas: HTMLCanvasElement;
 
   onMount(() => {
@@ -72,13 +69,26 @@
   });
 
   onMount(() => {
-    const sizes = [window.innerWidth, window.innerHeight];
+    // Three animation data
+    const sizes = [500, 800];
+    let mobileModel: THREE.Object3D<THREE.Object3DEventMap>;
+    let effio_images:
+      | Record<
+          "effio1" | "effio2" | "effio3",
+          THREE.Object3D<THREE.Object3DEventMap>
+        >
+      | Record<string, never> = {};
 
     const loader = new GLTFLoader();
-    let mobileModel: THREE.Object3D<THREE.Object3DEventMap>;
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas: mobileCanvas,
+      alpha: true,
+    });
+    renderer.setSize(sizes[0], sizes[1]);
+    renderer.setClearColor(0x000000, 0);
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xdddddd);
 
     const camera = new THREE.PerspectiveCamera(
       75,
@@ -87,11 +97,9 @@
       1000
     );
 
-    let hlight = new THREE.AmbientLight(0x404040, 100);
-    scene.add(hlight);
-
-    const renderer = new THREE.WebGLRenderer({ canvas: mobileCanvas });
-    renderer.setSize(sizes[0], sizes[1]);
+    const directionalMobile = new THREE.DirectionalLight(0xffffff, 1);
+    directionalMobile.position.set(10, 10, 50);
+    scene.add(directionalMobile);
 
     camera.position.z = 10;
 
@@ -108,11 +116,23 @@
       "/models/mobile.glb",
       (gtlf) => {
         scene.add(gtlf.scene);
-        mobileModel = gtlf.scene.children[0];
-        // object.scale.x = 1;
-        // object.scale.y = 1;
-        // object.scale.z = 1;
-        // scene.add(object);
+        mobileModel = gtlf.scene;
+        const effio1 = mobileModel.children.find(
+          (item) => item.name === "effio1"
+        );
+        const effio2 = mobileModel.children.find(
+          (item) => item.name === "effio2"
+        );
+        const effio3 = mobileModel.children.find(
+          (item) => item.name === "effio3"
+        );
+        if (effio1 && effio2 && effio3) {
+          effio_images = {
+            effio1,
+            effio2,
+            effio3,
+          };
+        }
       },
       undefined,
       (err) => {
@@ -122,7 +142,7 @@
   });
 </script>
 
-<!-- <div class="relative py-[200px] grid place-content-center isolate">
+<div class="relative py-[200px] grid place-content-center isolate">
   <div
     class="absolute text-landing-bg flex flex-col leading-[80%] items-center rotate-[20deg] opacity-5 -translate-x-1/2 left-1/2 select-none z-[-99]"
   >
@@ -135,5 +155,5 @@
   </div>
   <h3 class="text-landing text-center leading-[1]">Effio</h3>
   <p class="text-text-darker text-h3 leading-[1]">Online Test Creation Tool</p>
-</div> -->
+</div>
 <canvas id="mobile-canvas" bind:this={mobileCanvas}></canvas>
