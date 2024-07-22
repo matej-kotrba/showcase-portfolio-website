@@ -8,6 +8,50 @@
   const backgroundEffectText = "EFFIO";
 
   let mobileCanvas: HTMLCanvasElement;
+  let mobileModel: THREE.Object3D<THREE.Object3DEventMap>;
+  let effio_images:
+    | Record<
+        "effio1" | "effio2" | "effio3",
+        THREE.Object3D<THREE.Object3DEventMap>
+      >
+    | Record<string, never> = {};
+
+  // Three animation data
+  const sizes = [350, 575];
+  let mobileRotationDeg = 12;
+
+  function degreesToRadians(degree: number) {
+    const deg = degree % 360;
+    return (Math.PI / 180) * deg;
+  }
+
+  function calcTransform(property: "x" | "y" | "z", value: string) {
+    let alias = {
+      y: "translateY",
+      x: "translateX",
+      z: "translateZ",
+      rotation: "rotate",
+    };
+    return function (_: unknown, target: HTMLElement) {
+      let transform = target.style.transform; // remember the original transform
+      target.style.transform =
+        (alias[property] || property) + "(" + value + ")"; // apply the new value
+      let computed = parseFloat(
+        // @ts-ignore
+        gsap.getProperty(
+          target,
+          property,
+          property.substr(0, 3) === "rot" ? "deg" : "px",
+          //@ts-ignore
+          true
+        )
+      ); // grab the pixel value
+      target.style.transform = transform; // revert
+      //@ts-ignore
+      gsap.getProperty(target, property, "px", true); // reset the cache so the new value is reflected
+      return computed;
+    };
+  }
 
   onMount(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -65,26 +109,30 @@
           scrub: 1,
         },
         translateX: -40,
+      })
+      .to(mobileCanvas, {
+        scrollTrigger: {
+          trigger: mobileCanvas,
+          start: "top 20%",
+          end: "center top",
+          markers: true,
+          scrub: 1,
+          pin: true,
+        },
+        x: calcTransform("x", "calc(100vw - 350px)"),
       });
   });
 
   onMount(() => {
-    // Three animation data
-    const sizes = [500, 800];
-    let mobileModel: THREE.Object3D<THREE.Object3DEventMap>;
-    let effio_images:
-      | Record<
-          "effio1" | "effio2" | "effio3",
-          THREE.Object3D<THREE.Object3DEventMap>
-        >
-      | Record<string, never> = {};
-
     const loader = new GLTFLoader();
 
     const renderer = new THREE.WebGLRenderer({
       canvas: mobileCanvas,
       alpha: true,
+      antialias: true,
     });
+
+    renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(sizes[0], sizes[1]);
     renderer.setClearColor(0x000000, 0);
 
@@ -104,10 +152,6 @@
     camera.position.z = 10;
 
     function animate() {
-      if (mobileModel) {
-        mobileModel.rotation.y += 0.005;
-      }
-
       renderer.render(scene, camera);
     }
     renderer.setAnimationLoop(animate);
@@ -117,6 +161,7 @@
       (gtlf) => {
         scene.add(gtlf.scene);
         mobileModel = gtlf.scene;
+        mobileModel.scale.set(1.3, 1.3, 1.3);
         const effio1 = mobileModel.children.find(
           (item) => item.name === "effio1"
         );
@@ -126,6 +171,10 @@
         const effio3 = mobileModel.children.find(
           (item) => item.name === "effio3"
         );
+
+        mobileModel.rotation.y = Math.PI;
+        mobileModel.rotation.y -= degreesToRadians(mobileRotationDeg);
+
         if (effio1 && effio2 && effio3) {
           effio_images = {
             effio1,
@@ -156,4 +205,5 @@
   <h3 class="text-landing text-center leading-[1]">Effio</h3>
   <p class="text-text-darker text-h3 leading-[1]">Online Test Creation Tool</p>
 </div>
-<canvas id="mobile-canvas" bind:this={mobileCanvas}></canvas>
+<canvas id="mobile-canvas" bind:this={mobileCanvas} class="absolute"></canvas>
+<div class="mt-[2000px]"></div>
