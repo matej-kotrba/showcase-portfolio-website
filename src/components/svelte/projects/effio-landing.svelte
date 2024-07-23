@@ -9,12 +9,20 @@
 
   let mobileCanvas: HTMLCanvasElement;
   let mobileModel: THREE.Object3D<THREE.Object3DEventMap>;
-  let effio_images:
+  let effioImages:
     | Record<
         "effio1" | "effio2" | "effio3",
         THREE.Object3D<THREE.Object3DEventMap>
       >
     | Record<string, never> = {};
+  let effioTexts: string[] = [
+    "Quiz creator",
+    "Leetcodes",
+    "Test taking",
+    "Sharing",
+    "User groups",
+    "And so much more...",
+  ];
 
   // Three animation data
   const sizes = [350, 575];
@@ -53,6 +61,7 @@
     };
   }
 
+  // GSAP animations
   onMount(() => {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -114,15 +123,24 @@
         scrollTrigger: {
           trigger: mobileCanvas,
           start: "top 20%",
-          end: "center top",
-          markers: true,
+          end: "bottom top",
           scrub: 1,
           pin: true,
+          markers: true,
+          onUpdate(data) {
+            if (mobileModel) {
+              mobileModel.rotation.y =
+                Math.PI +
+                degreesToRadians(mobileRotationDeg) -
+                data.progress * degreesToRadians(mobileRotationDeg * 2);
+            }
+          },
         },
         x: calcTransform("x", "calc(100vw - 350px)"),
       });
   });
 
+  // Three.js setup
   onMount(() => {
     const loader = new GLTFLoader();
 
@@ -172,11 +190,10 @@
           (item) => item.name === "effio3"
         );
 
-        mobileModel.rotation.y = Math.PI;
-        mobileModel.rotation.y -= degreesToRadians(mobileRotationDeg);
+        mobileModel.rotation.y = Math.PI + degreesToRadians(mobileRotationDeg);
 
         if (effio1 && effio2 && effio3) {
-          effio_images = {
+          effioImages = {
             effio1,
             effio2,
             effio3,
@@ -206,4 +223,10 @@
   <p class="text-text-darker text-h3 leading-[1]">Online Test Creation Tool</p>
 </div>
 <canvas id="mobile-canvas" bind:this={mobileCanvas} class="absolute"></canvas>
+<div class="text-h1 container mx-auto leading-[2]">
+  <div>
+    <h4>Quiz creator</h4>
+    <p>Create your own quizzes using 8 input types, edit marking</p>
+  </div>
+</div>
 <div class="mt-[2000px]"></div>
